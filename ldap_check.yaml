@@ -1,0 +1,30 @@
+---
+
+- name: test bigip_device_auth_ldap
+  hosts: all
+  tasks:
+    - name: example001
+      bigip_device_auth_ldap:
+        bind_dn: "CN=example001,OU=example_ou,DC=example,DC=net"
+        bind_password: 'lolcats'
+        ca_cert: none
+        check_member_attr: yes
+        fallback_to_local: yes
+        scope: base
+        servers:
+          - 192.168.122.244
+          - 192.168.122.245
+        state: present
+        validate_certs: no
+        provider:
+          server: 192.168.122.63
+          server_port: 8443
+          user: admin
+          password: admin
+          validate_certs: no
+      delegate_to: localhost
+      register: returned_vars
+
+    - name: report returned_vars
+      debug:
+        var: returned_vars
