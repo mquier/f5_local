@@ -17,8 +17,7 @@
 
   tasks:
     - name: example001
-      #bigip_device_httpd:
-      http_report:
+      bigip_device_httpd_report:
         auth_name: "{{ an }}"
         auth_pam_idle_timeout: "{{ apit }}"
         auth_pam_dashboard_timeout: "{{ apdt }}"
