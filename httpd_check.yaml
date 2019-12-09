@@ -29,6 +29,7 @@
         ssl_cipher_suite: "{{ scs }}"
         ssl_protocols: "{{ sprot }}"
         provider:
+          server: "{{ target_ip }}"
           server: 192.168.122.63
           server_port: 8443
           user: admin
