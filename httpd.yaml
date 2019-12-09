@@ -1,0 +1,43 @@
+---
+
+- name: test bigip_device_auth_ldap
+  hosts: all
+  gather_facts: no
+  vars:
+    an: 'ST&E'
+    apit: 900
+    apdt: yes
+    apvi: yes
+    ll: 'info'
+    mc: 10
+    rhth: no
+    sport: 443
+    scs: 'ECDHE-ECDSA-AES128-SHA256'
+    sprot: '-all TLSv1.2 TLSv1.3'
+
+  tasks:
+    - name: example001
+      bigip_device_httpd:
+        auth_name: "{{ an }}"
+        auth_pam_idle_timeout: "{{ apit }}"
+        auth_pam_dashboard_timeout: "{{ apdt }}"
+        auth_pam_validate_ip: "{{ apvi }}"
+        log_level: "{{ ll }}"
+        max_clients: "{{ mc }}"
+        redirect_http_to_https: "{{ rhth }}"
+        ssl_port: "{{ sport }}"
+        ssl_cipher_suite: "{{ scs }}"
+        ssl_protocols: "{{ sprot }}"
+        provider:
+          server: "{{ target_ip }}"
+          #server: 192.168.122.63
+          server_port: 8443
+          user: admin
+          password: admin
+          validate_certs: no
+      delegate_to: localhost
+      register: returned_vars
+
+    - name: report returned_vars
+      debug:
+        var: returned_vars
