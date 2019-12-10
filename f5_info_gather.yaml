@@ -3,6 +3,8 @@
 - name: test f5 info/facts gathering
   hosts: all
   gather_facts: no
+  vars:
+    file_path_for_reports: ''
   tasks:
     - name: info dump
       bigip_device_info:
