@@ -56,13 +56,13 @@
     - name: template dump vars
       template:
         src: f5_httpd_pretty.j2
-        dest: "{{ file_path_for_reports }}"/f5_httpd_pretty.json
+        dest: "{{ file_path_for_reports }}/f5_httpd_pretty.json"
       when: file_path_for_reports != ''
 
     - name: template dump vars
       template:
         src: f5_pretty.j2
-        dest: "{{ file_path_for_reports }}"/f5_pretty.json
+        dest: "{{ file_path_for_reports }}/f5_pretty.json"
         when: file_path_for_reports != ''
 
     # raw output with no formatting
