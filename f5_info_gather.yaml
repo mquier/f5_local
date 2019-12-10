@@ -1,0 +1,70 @@
+---
+
+- name: test f5 info/facts gathering
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: info dump
+      bigip_device_info:
+        gather_subset:
+          - all
+        provider:
+          server: "{{ target_ip }}"
+          #server: 192.168.122.63
+          server_port: 8443
+          user: admin
+          password: admin
+          validate_certs: no
+      delegate_to: localhost
+      register: returned_vars
+
+    # there will be lots and lots
+    - name: report core f5 facts
+      tags: core_facts
+      debug:
+        var: returned_vars
+
+    - name: httpd_settings
+      bigip_device_httpd_report:
+        auth_name: "{{ an }}"
+        auth_pam_idle_timeout: "{{ apit }}"
+        auth_pam_dashboard_timeout: "{{ apdt }}"
+        auth_pam_validate_ip: "{{ apvi }}"
+        log_level: "{{ ll }}"
+        max_clients: "{{ mc }}"
+        redirect_http_to_https: "{{ rhth }}"
+        ssl_port: "{{ sport }}"
+        ssl_cipher_suite: "{{ scs }}"
+        ssl_protocols: "{{ sprot }}"
+        provider:
+          server: "{{ target_ip }}"
+          #server: 192.168.122.63
+          server_port: 8443
+          user: admin
+          password: admin
+          validate_certs: no
+      delegate_to: localhost
+      register: f5_httpd_settings
+
+    - name: report core f5 facts
+      tags: httpd_settings
+      debug:
+        var: f5_httpd_settings
+
+    - name: template dump vars
+      template:
+        src: f5_httpd_pretty.j2
+        dest: "{{ file_path_for_reports }}"/f5_httpd_pretty.json
+      when: file_path_for_reports != ''
+
+    - name: template dump vars
+      template:
+        src: f5_pretty.j2
+        dest: "{{ file_path_for_reports }}"/f5_pretty.json
+        when: file_path_for_reports != ''
+
+    # raw output with no formatting
+    #- name: dump vars
+    #  copy:
+    #    dest: "{{ file_path_for_reports }}"/f5_info.json
+    #    content: "{{ returned_vars }}"
