@@ -5,6 +5,17 @@
   gather_facts: no
   vars:
     file_path_for_reports: ''
+    an: 'ST&E'
+    apit: 900
+    apdt: yes
+    apvi: yes
+    ll: 'info'
+    mc: 10
+    rhth: no
+    sport: 443
+    scs: 'ECDHE-ECDSA-AES128-SHA256'
+    sprot: '-all TLSv1.2 TLSv1.3'
+    
   tasks:
     - name: info dump
       bigip_device_info:
@@ -59,14 +70,9 @@
         dest: "{{ file_path_for_reports }}/f5_httpd_pretty.json"
       when: file_path_for_reports != ''
 
-    - name: template dump vars
+    - name: template dump core vars
       template:
         src: f5_pretty.j2
         dest: "{{ file_path_for_reports }}/f5_pretty.json"
-        when: file_path_for_reports != ''
+      when: file_path_for_reports != ''
 
-    # raw output with no formatting
-    #- name: dump vars
-    #  copy:
-    #    dest: "{{ file_path_for_reports }}"/f5_info.json
-    #    content: "{{ returned_vars }}"
