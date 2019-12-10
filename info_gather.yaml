@@ -16,13 +16,13 @@
     sprot: '-all TLSv1.2 TLSv1.3'
 
   tasks:
-    - name: example001
+    - name: info dump
       bigip_device_info:
         gather_subset:
           - all
         provider:
-          #server: "{{ target_ip }}"
-          server: 192.168.122.63
+          server: "{{ target_ip }}"
+          #server: 192.168.122.63
           server_port: 8443
           user: admin
           password: admin
@@ -35,12 +35,40 @@
 #      debug:
 #        var: returned_vars
 
-#    - name: dump vars
-#      copy:
-#        dest: /home/wodin/Documents/devel/f5_local/f5_info.json
-#        content: "{{ returned_vars }}"
+    - name: dump vars
+      copy:
+        dest: /home/wodin/Documents/devel/f5_local/f5_info.json
+        content: "{{ returned_vars }}"
 
     - name: template dump vars
       template:
         src: f5_pretty.j2
         dest: /home/wodin/Documents/devel/f5_local/f5_pretty.json
+
+    - name: httpd_settings
+      bigip_device_httpd_report:
+        auth_name: "{{ an }}"
+        auth_pam_idle_timeout: "{{ apit }}"
+        auth_pam_dashboard_timeout: "{{ apdt }}"
+        auth_pam_validate_ip: "{{ apvi }}"
+        log_level: "{{ ll }}"
+        max_clients: "{{ mc }}"
+        redirect_http_to_https: "{{ rhth }}"
+        ssl_port: "{{ sport }}"
+        ssl_cipher_suite: "{{ scs }}"
+        ssl_protocols: "{{ sprot }}"
+        provider:
+          server: "{{ target_ip }}"
+          #server: 192.168.122.63
+          server_port: 8443
+          user: admin
+          password: admin
+          validate_certs: no
+      delegate_to: localhost
+      register: f5_httpd_settings
+
+
+    - name: template dump vars
+      template:
+        src: f5_httpd_pretty.j2
+        dest: /home/wodin/Documents/devel/f5_local/f5_httpd_pretty.json

@@ -18593,13 +18593,13 @@
         "product_version": "13.1.0.4",
         "time": {
             "day": 10,
-            "hour": 16,
-            "minute": 47,
+            "hour": 17,
+            "minute": 8,
             "month": 12,
-            "second": 55,
+            "second": 29,
             "year": 2019
         },
-        "uptime": 7493.0
+        "uptime": 8728.0
     },
     "tcp_half_open_monitors": [
         {

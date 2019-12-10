@@ -1,0 +1,21 @@
+{
+    "ansible_facts": {
+        "f5_http_settings": {
+            "allow": "all",
+            "auth_name": "BIG-IP",
+            "auth_pam_dashboard_timeout": "off",
+            "auth_pam_idle_timeout": 1200,
+            "auth_pam_validate_ip": "on",
+            "fast_cgi_timeout": 300,
+            "hostname_lookup": "off",
+            "log_level": "warn",
+            "max_clients": 10,
+            "redirect_http_to_https": "disabled",
+            "ssl_cipher_suite": "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA256:ECDHE-ECDSA-AES256-SHA384:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA:AES256-SHA:AES128-SHA256:AES256-SHA256:ECDHE-RSA-DES-CBC3-SHA:ECDHE-ECDSA-DES-CBC3-SHA:DES-CBC3-SHA",
+            "ssl_port": 8443,
+            "ssl_protocols": "all -SSLv2 -SSLv3"
+        }
+    },
+    "changed": false,
+    "failed": false
+}
